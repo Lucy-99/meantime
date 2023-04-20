@@ -1,25 +1,25 @@
+import { Web3Provider } from '@ethersproject/providers';
+import { Web3ReactProvider } from '@web3-react/core';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle, theme } from './GlobalStyle';
+import { RootRouter } from './router';
+
+const getLibrary = (provider: any) => {
+  return new Web3Provider(provider);
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <RouterProvider router={RootRouter} />
+        </Web3ReactProvider>
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
 
